@@ -45,6 +45,8 @@ The robot is required to execute the functionalities concurrently, therefore ope
 ##### Main Libraries used
 1. [Bluepad32](https://github.com/ricardoquesada/bluepad32) (to allow communication between PS5 controller and the ESP-32 module)
 2. [CMSIS RTOS-2](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) (to use real-time operating system constructs such as threads, mutexes, message queues, event flags etc. needed for the robot to execute tasks concurrently)
+#### Obstacle Course
+![Alt text](robot.jpg)
 
 ## Design/Architecture
 ### Physical
