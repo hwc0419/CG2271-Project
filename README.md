@@ -42,6 +42,9 @@ The robot is required to execute the functionalities concurrently, therefore ope
 2. Keil Microvision 5
 ##### Programming Language
 1. C
+##### Main Libraries used
+1. [Bluepad32](https://github.com/ricardoquesada/bluepad32) (to allow communication between PS5 controller and the ESP-32 module)
+2. [CMSIS RTOS-2](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) (to use real-time operating system constructs such as threads, mutexes, message queues, event flags etc. needed for the robot to execute tasks concurrently)
 
 ## Design/Architecture
 ### Physical
@@ -67,10 +70,6 @@ The design uses a master-slave architecture, with the ESP-32 being the master an
 6. Bit 0 <-> Undefined
 
 While the packet has not arrived at the KL25Z and is still travelling between nodes, the packet is in the form of a binary string. When it reaches the KL25Z, the binary string is parsed, decoding the string and updates the state of the robot to execute the 3 tasks at once. To understand how the message is parsed and how the program executes the required tasks concurrently, refer to main.c under this repository.
-
-##### Main Libraries used
-1. [Bluepad32](https://github.com/ricardoquesada/bluepad32) (to allow communication between PS5 controller and the ESP-32 module)
-2. [CMSIS RTOS-2](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) (to use real-time operating system constructs such as threads, mutexes, message queues, event flags etc. needed for the robot to execute tasks concurrently)
 
 ## Division of labour
 My team consisted of 5 people and we decided to split the work into 5 areas. Motor control, LED control, Audio control, Serial communication (between ESP32 and KL25Z) and Wireless communication (between the PS5 controller and ESP32)
