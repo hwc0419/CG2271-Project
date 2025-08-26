@@ -61,7 +61,7 @@ The following are circuit diagrams for all the electrical connections used in th
 "insert diagram"
 
 ### Software 
-The design uses a master-slave architecture, with the ESP-32 being the master and the KL25Z being the slave. The message packet travels from the PS5 controller to the ESP-32 over Bluetooth, and then travels from the ESP-32 to the KL25Z, where the message is parsed by the main driver code residing in KL25Z and then the corresponding command will be executed. The message packet is an 8-bit binary number. Let Bit 0 be the LSB and Bit 7 be the MSB, then 
+The design uses a master-slave architecture, with the ESP-32 being the master and the KL25Z being the slave. The message packet travels from the PS5 controller to the ESP-32 over Bluetooth, and then travels from the ESP-32 to the KL25Z via wired serial communication, where the message is parsed by the main driver code residing in KL25Z and then the corresponding command will be executed. The message packet is an 8-bit binary number. Let Bit 0 be the LSB and Bit 7 be the MSB, then 
 1. Bit 6,7 <-> Power level of left motor (Zero, Medium, High, Max)
 2. Bit 4,5 <-> Power level of right motor (Zero, Medium, High, Max)
 3. Bit 3 <-> Spin direction of left motor
