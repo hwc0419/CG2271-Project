@@ -93,6 +93,6 @@ I worked closely with my groupmates working on serial/wireless communications to
 ## End product
 ![Alt text](robot.jpg)
 
-A video demonstrating the robot's capabilities can be found [here](CG2271 project eval.mp4)
+A video demonstrating the robot's capabilities can be found under this repository (refer to CG2271 project eval.mp4)
 
 
