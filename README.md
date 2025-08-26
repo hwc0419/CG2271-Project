@@ -43,10 +43,37 @@ The robot is required to execute the functionalities concurrently, therefore ope
 ##### Programming Language
 1. C
 
+## Design/Architecture
+### Physical
+An illustrative diagram which maps the different modules in the robot as implementations to the required functionalities is shown below.
+
+"insert diagram"
+
+The physical arrangement shown in the diagram facilitates easy debugging/testing as the wires/batteries are exposed to the environment making it easy to  replace faulty wires/batteries. The ease of battery replacement also makes it simpler to test the design at different power levels.
+
+Testing the design on the obstacle course has shown that it is possible for the user to clear the obstacle course without the wires disconnecting, justifying the lack of protective cover for the wires and that the design maintains structural integrity when moving.
+### Electrical
+The following are circuit diagrams for all the electrical connections used in the design
+
+"insert diagram"
+
+### Software 
+The design uses a master-slave architecture, with the ESP-32 being the master and the KL25Z being the slave. The message packet travels from the PS5 controller to the ESP-32 over Bluetooth, and then travels from the ESP-32 to the KL25Z, where the message is parsed by the main driver code residing in KL25Z and then the corresponding command will be executed. The message packet is an 8-bit binary number. Let Bit 0 be the LSB and Bit 7 be the MSB, then 
+1. Bit 6,7 <-> Power level of left motor (Zero, Medium, High, Max)
+2. Bit 4,5 <-> Power level of right motor (Zero, Medium, High, Max)
+3. Bit 3 <-> Spin direction of left motor
+4. Bit 2 <-> Spin direction of right motor
+5. Bit 1 <-> User pressed "x" on the controller or not (to signal that the robot has completed the maze)
+6. Bit 0 <-> Undefined
+
+While the packet has not arrived at the KL25Z and is still travelling between nodes, the packet is in the form of a binary string. When it reaches the KL25Z, the binary string is parsed, decoding the string and updates the state of the robot to execute the 3 tasks at once. To understand how the message is parsed and how the program executes the required tasks concurrently, refer to main.c under this repository.
+
 ##### Main Libraries used
 1. [Bluepad32](https://github.com/ricardoquesada/bluepad32) (to allow communication between PS5 controller and the ESP-32 module)
-2. [CMSIS RTOS-2](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) (to use real-time operating system constructs such as threads, semaphores, mutexes etc. needed for the robot to execute tasks concurrently)
+2. [CMSIS RTOS-2](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) (to use real-time operating system constructs such as threads, mutexes, message queues, event flags etc. needed for the robot to execute tasks concurrently)
 
+## Division of labour
+My team consisted of 5 people and we decided to split the work into 5 areas. Motor control, LED control, Audio control, Serial communication (between ESP32 and KL25Z) and Wireless communication (between the PS5 controller and ESP32)
 
 ## My role in the project
 I was responsible for implementing motor control, as well as ensuring that the robot can execute tasks concurrently. In the process, I have picked up debugging skills in both hardware and software. On the hardware side, I used an oscilloscope to debug the PWM signals sent to the motor drivers to ensure correct signal transmission across the jumper wires. 
@@ -55,10 +82,18 @@ On the software side, I made use of the debugging feature included in KL25Z boar
 
 I also coordinated with my other teammates to assemble the chassis from the parts given, discuss which pins on the KL25Z are to be used, which parts need to be soldered as well as the overall layout of all the modules on the chassis. 
 
-I worked closely with my groupmate who was responsible for establishing Bluetooth connection between the ESP32 and the PS5 controller to figure out how the curved turns can be implemented, the type of curved turns possible using the PS5 controller as the interface, and the curved turns needed to clear the obstacle course.
+## Key challenges
+
+I worked closely with my groupmates working on serial/wireless communications to work through the following challenges.
+1. How the curved turns can be implemented
+2. The type of curved turns possible using the PS5 controller as the interface
+3. The curved turns needed to clear the obstacle course.
+4. The size of the data frame used in the communication protocol (this affects how responsive the robot is to the controller)
+
 
 ## End product
 ![Alt text](robot.jpg)
-A video demonstrating the robot's capabilities can be found [here]()
+
+A video demonstrating the robot's capabilities can be found [here](CG2271 project eval.mp4)
 
 
