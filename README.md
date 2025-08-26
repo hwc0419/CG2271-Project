@@ -45,6 +45,6 @@ CG2271 is the module code for "Real Time Operating Systems" (RTOS for short). Th
 2. [CMSIS RTOS-2](https://arm-software.github.io/CMSIS_6/latest/RTOS2/index.html) (to use real-time operating system constructs such as threads, semaphores, mutexes etc. needed for the robot to execute tasks concurrently)
 
 # End Product
-![Alt text](/Users/ASUS/Downloads/robot.jpg)
+![Alt text](robot.jpg)
 
 
